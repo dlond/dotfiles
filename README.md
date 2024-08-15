@@ -60,4 +60,5 @@ To get changes into dotfiles
 ```
 cd $DOTFILES
 git submodule update
+stow .
 ```
