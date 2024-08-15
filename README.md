@@ -21,8 +21,8 @@ brew install stow
 First, check out the dotfiles repo in your $HOME directory using git
 
 ```
-git clone git@github.com/dlond/dotfiles.git
-cd dotfiles
+git clone git@github.com/dlond/dotfiles.git $DOTFILES
+cd $DOTFILES
 git submodule init
 git submodule update
 ```
@@ -35,18 +35,29 @@ stow .
 
 ## Notes
 
-### 1.
-
-nvim config is forked from nvim-lua/kickstart.nvim.
+### 1. The submodule .config/nvim is forked from nvim-lua/kickstart.nvim.
 
 To sync the fork
 
 ```
+cd $DOTFILES/.config/nvim
 git rebase upstream/master
+[ ... fix conflicts ]
+git push origin main
 ```
 
-To get changes (e.g. syncs or updates) into dotfiles
+To modify nvim config 
 
 ```
+cd $DOTFILES/.config/nvim
+[ ... make changes ]
+git commit -am "my new awesome config"
+git push origin main
+```
+
+To get changes into dotfiles
+
+```
+cd $DOTFILES
 git submodule update
 ```
