@@ -1,6 +1,7 @@
 # My dotfiles
 
-This directory contains the dotfiles for my system
+This directory contains the dotfiles for my system. Initial inspiration came from [Dreams of Autonomy's](https://github.com/dreamsofautonomy) [YouTube video on dotfiles](https://www.youtube.com/watch?v=y6XCebnB9gs)
+
 
 ## Requirements
 
