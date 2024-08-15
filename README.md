@@ -21,14 +21,14 @@ brew install stow
 First, check out the dotfiles repo in your $HOME directory using git
 
 ```
-$ git clone git@github.com/dlond/dotfiles.git
-$ cd dotfiles
-$ git submodules init
-$ git submodules update
+git clone git@github.com/dlond/dotfiles.git
+cd dotfiles
+git submodules init
+git submodules update
 ```
 
 Then use GNU stow to create symlinks
 
 ```
-$ stow .
+stow .
 ```
