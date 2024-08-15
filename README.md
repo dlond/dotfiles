@@ -32,3 +32,21 @@ Then use GNU stow to create symlinks
 ```
 stow .
 ```
+
+## Notes
+
+### 1.
+
+nvim config is forked from nvim-lua/kickstart.nvim.
+
+To sync the fork
+
+```
+git rebase upstream/master
+```
+
+To get changes (e.g. syncs or updates) into dotfiles
+
+```
+git submodule update
+```
