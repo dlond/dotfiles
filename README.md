@@ -60,6 +60,7 @@ To get changes into dotfiles
 
 ```
 cd $DOTFILES
-git submodule update
-stow .
+git add .config/nvim
+git commit -m "nvim submodule update"
+git push origin main
 ```
