@@ -55,31 +55,52 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Aliases
+# OS specific
 if [[ "$OSTYPE" == "darwin"* ]]; then
+	# brew and brew tools
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+	export PATH="$(brew --prefix)/opt/python@3.11/libexec/bin:$PATH"
+	export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+
+	# miniconda
+	eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+
+	# modular
+	export MODULAR_HOME="/Users/dlond/.modular"
+
+	# clipboard
 	alias clip="pbcopy"
+
 elif [[ "$OSTYPE" == "linux-gnu"* ]] then
-	if command -v xclip &> /dev/null; then
-		alias clip="xclip -selection clipboard"
+	# miniconda
+	__conda_setup="$('/local1/dlond/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+	if [ $? -eq 0 ]; then
+		eval "$__conda_setup"
+	else
+		if [ -f "/local1/dlond/miniforge3/etc/profile.d/conda.sh" ]; then
+			. "/local1/dlond/miniforge3/etc/profile.d/conda.sh"
+		else
+			export PATH="/local1/dlond/miniforge3/bin:$PATH"
+		fi
 	fi
+	unset __conda_setup
+
+	if [ -f "/local1/dlond/miniforge3/etc/profile.d/mamba.sh" ]; then
+		. "/local1/dlond/miniforge3/etc/profile.d/mamba.sh"
+	fi
+
+	# clipboard
+	alias clip="xclip -selection clipboard"
 fi
-alias ls='ls --color'
-alias vim='nvim'
-alias sf='fzf -m --preview="bat --color=always {}" --bind "ctrl-w:become(nvim {+}),ctrl-y:execute-silent(echo {} | clip)+abort"'
+
 
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-# miniconda
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+# Aliases
+alias ls='ls --color'
+alias ll='ls -lah'
+alias vim='nvim'
+alias sf='fzf -m --preview="bat --color=always {}" --bind "ctrl-w:become(nvim {+}),ctrl-y:execute-silent(echo {} | clip)+abort"'
 
-# modular
-export MODULAR_HOME="/Users/dlond/.modular"
-
-# brew tools
-if command -v brew &> /dev/null; then
-	eval "$(/opt/homebrew/bin/brew shellenv)"
-	export PATH="$(brew --prefix)/opt/python@3.11/libexec/bin:$PATH"
-	export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
-fi
