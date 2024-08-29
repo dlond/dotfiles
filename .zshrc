@@ -1,4 +1,3 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -26,9 +25,8 @@ autoload -U compinit && compinit
 
 zinit cdreplay -q
 
-# ohmyposh is managed by brew
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-	eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/catppuccin_mocha.omp.json)"
+	eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/my_catppuccin.toml)"
 fi
 
 # Keybindings
@@ -58,10 +56,30 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias clip="pbcopy"
+elif [[ "$OSTYPE" == "linux-gnu"* ]] then
+	if command -v xclip &> /dev/null; then
+		alias clip="xclip -selection clipboard"
+	fi
+fi
 alias ls='ls --color'
 alias vim='nvim'
-alias sf='fzf -m --preview="bat --color=always {}" --bind "ctrl-w:become(nvim {+}),ctrl-y:execute-silent(echo {} | pbcopy)+abort"'
+alias sf='fzf -m --preview="bat --color=always {}" --bind "ctrl-w:become(nvim {+}),ctrl-y:execute-silent(echo {} | clip)+abort"'
 
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+# miniconda
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+
+# modular
+export MODULAR_HOME="/Users/dlond/.modular"
+
+# brew tools
+if command -v brew &> /dev/null; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+	export PATH="$(brew --prefix)/opt/python@3.11/libexec/bin:$PATH"
+	export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
+fi
