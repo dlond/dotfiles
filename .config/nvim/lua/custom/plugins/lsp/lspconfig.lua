@@ -109,6 +109,10 @@ return {
       'stylua',
       'isort',
       'black',
+      'ruff',
+      'jsonlint',
+      'markdownlint',
+      'yamllint',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

@@ -39,3 +39,6 @@ opt.splitbelow = true
 opt.scrolloff = 10
 
 opt.updatetime = 250
+
+opt.list = true
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
