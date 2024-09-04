@@ -1,4 +1,3 @@
-
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -93,13 +92,12 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]] then
 	alias clip="xclip -selection clipboard"
 fi
 
-
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 # Aliases
-alias ls='ls --color'
+alias ls='ls -G'
 alias ll='ls -lah'
 alias vim='nvim'
 alias sf='fzf -m --preview="bat --color=always {}" --bind "ctrl-w:become(nvim {+}),ctrl-y:execute-silent(echo {} | clip)+abort"'
