@@ -71,6 +71,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias clip="pbcopy"
 
 elif [[ "$OSTYPE" == "linux-gnu"* ]] then
+	# my tools
+	export PATH="$HOME/bin:$PATH"
+
 	# miniconda
 	__conda_setup="$('/local1/dlond/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 	if [ $? -eq 0 ]; then
