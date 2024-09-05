@@ -27,6 +27,7 @@ return {
     formatters_by_ft = {
       c = { 'clang_format' },
       cpp = { 'clang_format' },
+      go = { 'gofmt' },
       lua = { 'stylua' },
       -- Conform can also run multiple formatters sequentially
       python = { 'isort', 'black' },
