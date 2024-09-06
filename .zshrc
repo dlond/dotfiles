@@ -28,14 +28,15 @@ zinit cdreplay -q
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	# brew and brew tools
 	eval "$(/opt/homebrew/bin/brew shellenv)"
-	export PATH="$(brew --prefix)/opt/python@3.11/libexec/bin:$PATH"
+	export PATH="$(brew --prefix)/opt/python/libexec/bin:$PATH"
 	export PATH="$(brew --prefix)/opt/llvm/bin:$PATH"
 
 	# miniconda
 	eval "$(conda "shell.$(basename "${SHELL}")" hook)"
 
 	# modular
-	export MODULAR_HOME="/Users/dlond/.modular"
+	export PATH="$PATH:/Users/dlond/.modular/bin"
+	eval "$(magic completion --shell zsh)"
 
 	# clipboard
 	alias clip="pbcopy"
